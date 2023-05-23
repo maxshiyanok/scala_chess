@@ -7,7 +7,7 @@ object Field{
         (rank, file) match {
             case (a, _) if a < 0 || a > 7 => None
             case (_, b) if b < 0 || b > 7 => None
-            case (a, b) => Some(new Field(a, b))
+            case (a, b) => Some(Field(a, b))
         }         
     }
 }

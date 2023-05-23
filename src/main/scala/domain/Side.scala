@@ -5,7 +5,12 @@ sealed trait Side {
     case White => Black
     case Black => White
   }
+  val rank: Int
 }
 
-case object White extends Side
-case object Black extends Side
+case object White extends Side{
+  val rank: Int = 0
+}
+case object Black extends Side{
+  val rank: Int = 7
+}
