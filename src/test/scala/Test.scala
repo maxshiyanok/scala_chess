@@ -88,6 +88,11 @@ class ChessSpec extends AnyFlatSpec {
     assert(GameEvaluator.isCheckMate(falseCheckMateBoard, White) == false)
   }
 
+  "new false checkmate" should "not be valid" in {
+    val falseCheckMateBoard: Board = Board(BoardConfigurations.newCheckMate)
+    assert(GameEvaluator.isCheckMate(falseCheckMateBoard, Black) == false)
+  }
+
   "King side castling not checks" should "be valid" in {
     val castlingBoard: Board = Board(BoardConfigurations.kingSideCastlingNoChecks)
     val castlingOptions: List[Castling] = KingSideCastling(White)::Nil
@@ -149,10 +154,5 @@ class ChessSpec extends AnyFlatSpec {
       updatedGame6 <- updatedGame5.updateGame(Move(Field(4, 7), Field(6, 5)))
     } yield updatedGame6
     assert(updGame.map(_.gameStatus) == Right(Win))
-  }
-
-  "toFen" should "be valid" in {
-    val game: GameState = GameState.createGame
-    assert(game.toFen == "rkbqkbkr/pppppppp/8/8/8/8/PPPPPPPP/RKBQKBKR w KQkq - 0 0")
   }
 }

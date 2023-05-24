@@ -13,7 +13,7 @@ import scala.concurrent.duration._
 import scala.util.Try
 
 
-object ChessServer extends IOApp {
+object Main extends IOApp {
   def run(args: List[String]): IO[ExitCode] = {
     val httpPort = 8080
 

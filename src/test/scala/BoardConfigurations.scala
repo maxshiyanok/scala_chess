@@ -26,6 +26,12 @@ case object BoardConfigurations{
         Field(1, 7) -> Pawn(White), Field(0, 3) -> Queen(Black), Field(2, 3) -> Queen(White)
     )
 
+    def newCheckMate: Map[Field, Piece] = Map(
+        Field(0, 4) -> King(White), Field(1, 4) -> Queen(White), Field(6, 5) -> Pawn(Black), 
+        Field(6, 3) -> Pawn(Black), Field(7, 3) -> Queen(Black), Field(7,5)-> Bishop(Black),
+        Field(6,4) -> King(Black)
+    )
+
     def kingSideCastlingNoChecks: Map[Field, Piece] = Map(
         Field(0, 4) -> King(White), Field(0, 7) -> Rook(White)
     )

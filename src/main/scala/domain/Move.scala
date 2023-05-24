@@ -13,7 +13,19 @@ case class Move(from: Field, to: Field){
 }
 object Move{
     def fromString(str: String): Option[Move] = {
-        val noWhitespaces = str.filterNot(_.isWhitespace)
+        val noWhitespaces = str.filterNot(_.isWhitespace).split("-").toList
+        noWhitespaces match {
+            case from :: to :: Nil => {
+                val fromField: Option[Field] = Field.fromString(from)
+                val toField: Option[Field] = Field.fromString(to)
+                (fromField, toField) match {
+                    case (Some(f), Some(t)) => Some(Move(f, t))
+                    case _ => None
+                }
+            }
+            case _ => None
+        }
+        /*
         if (noWhitespaces.forall(_.isDigit)){
             noWhitespaces.toList match{
                 case rankFrom :: fileFrom :: rankTo :: fileTo :: Nil => {
@@ -29,5 +41,6 @@ object Move{
         }
         else
             None
+            */
     }
 }

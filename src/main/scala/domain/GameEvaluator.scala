@@ -65,14 +65,13 @@ object GameEvaluator{
 
         def kingCantEscape(kingField: Field): Boolean = {
 
-            val updatedPositionChecks: List[List[Field]] = for {
+            val updatedPositionChecks: List[Boolean] = for {
                 direction <- directions
-                fieldToEscape <- Field.create(direction._1, direction._2)
-                if board.validateMove(Move(kingField, fieldToEscape), side)
+                fieldToEscape <- Field.create(kingField.rank+direction._1, kingField.file+direction._2)
                 newBoard <- board.updateBoard(Move(kingField, fieldToEscape), side, Nil, None)
-            } yield this.piecesAttackingField(newBoard, kingField, side)
+            } yield this.kingUnderCheck(newBoard, side)
 
-            updatedPositionChecks.forall(!_.isEmpty)
+            updatedPositionChecks.forall(_==true)
         }
 
         val kingField: Field = board.getPieceBoard.get(King(side)).get.head

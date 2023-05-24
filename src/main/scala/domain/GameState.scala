@@ -36,12 +36,12 @@ case class GameState(
                 case None => Left(MoveValidationError)
             }
         }
-        def toFen: String = {
+        def toFen: (String, String) = {
 
             def fenLine(tempSum: Int, line: List[Char]): String = {
                 line match {
                     case head :: next => {
-                        if (head.isDigit){
+                        if (head == '-'){
                             fenLine(tempSum+1, next)
                         }
                         else if (tempSum > 0)
@@ -61,13 +61,16 @@ case class GameState(
                     val pieceOption = myBoard.get(Field(rank, file))
                     pieceOption match {
                         case Some(value) => value.pieceToFen
-                        case _ => '1'
+                        case _ => '-'
                     }
                 })
-                fenLine(0, fenList)
+                //fenLine(0, fenList)
+                fenList.mkString
             }
 
-            val fenBitBoard = List.range(0,8).map(lineToFen(_)).reverse.mkString("\n")
+            val fenBitBoard = List.range(0,8).map(lineToFen(_))
+            val fenBitBoardWhite = fenBitBoard.reverse.mkString("\n")
+            val fenBitBoardBlack = fenBitBoard.map(_.reverse).mkString("\n")
             val fenSideToMove = sideToMove match {
                 case White => "w"
                 case Black => "b"
@@ -77,7 +80,8 @@ case class GameState(
             val fenEnPassant = "-"
             val fenHalfMoves = "0"
             val fenMoves = "0"
-            s"$fenBitBoard $fenSideToMove $checkedFenCastling $fenEnPassant $fenHalfMoves $fenMoves"
+            (s"$fenBitBoardWhite $fenSideToMove $checkedFenCastling $fenEnPassant $fenHalfMoves $fenMoves",
+            s"$fenBitBoardBlack $fenSideToMove $checkedFenCastling $fenEnPassant $fenHalfMoves $fenMoves")
         }
     }
 

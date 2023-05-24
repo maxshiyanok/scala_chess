@@ -13,6 +13,7 @@ var chat = {}; // Namespace
 
 	chat.initPage = function () {
 		document.getElementById(chat.ENTRY_ID).focus();
+		document.getElementById(chat.ENTRY_ID).style.fontSize = "x-large";
 
 		chat.writeOutput('Initializing Chess client.');
 		chat.writeOutput('Enter your username:');
@@ -25,7 +26,11 @@ var chat = {}; // Namespace
         chat.ws = new WebSocket(url.href);
         chat.ws.onopen = function(evt) {
             chat.writeOutput('Connection established');
-            chat.writeOutput('Type \'/help\' for a list of commands');
+			chat.writeOutput('You are currently in lobby and you can type anything in here');
+			chat.writeOutput('to see existing rooms type /rooms');
+			chat.writeOutput('to join some room or create new one type /room {roomname}');
+			chat.writeOutput('when room has 2 players game starts');
+			chat.writeOutput('to make a move you have to type field from and field to e.g. e2-e4 or g1-f3');
         };
 
         chat.ws.onclose = function(evt) {
@@ -96,6 +101,7 @@ var chat = {}; // Namespace
 		}
 
 		// Append the output to the text area
+		oOutput.style.fontSize = "xx-large";
 		oOutput.value += sPadding + sOutput;
 
 		// Scroll the text into view

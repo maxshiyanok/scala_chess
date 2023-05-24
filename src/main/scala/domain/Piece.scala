@@ -74,8 +74,8 @@ case class Knight(side: Side) extends Piece{
     }
 
     def pieceToFen: Char = side match {
-        case White => 'K'
-        case Black => 'k'
+        case White => 'N'
+        case Black => 'n'
     }
 }
 
