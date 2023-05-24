@@ -1,11 +1,16 @@
 package chess
 
-case class Field(rank: Int, file: Int)
+case class Field(rank: Int, file: Int){
+    def fieldToString: String = {
+        s"${Field.letterToFile.map(_.swap).get(file).get}${rank+1}"
+    }
+}
 
 object Field{
     def letterToFile: Map[Char, Int] = {
         Map('a'-> 0, 'b'-> 1, 'c'-> 2, 'd'-> 3, 'e'-> 4, 'f'->5, 'g'-> 6, 'h'-> 7)
     }
+
     def create(rank: Int, file: Int): Option[Field] = {
         (rank, file) match {
             case (a, _) if a < 0 || a > 7 => None

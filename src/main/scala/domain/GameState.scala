@@ -77,7 +77,10 @@ case class GameState(
             }
             val fenCastling = castlingWhite.map(_.castlingToFen).mkString + castlingBlack.map(_.castlingToFen).mkString
             val checkedFenCastling = if (fenCastling.isBlank) "-" else fenCastling
-            val fenEnPassant = "-"
+            val fenEnPassant = enPassantField match {
+                case Some(value) => value.fieldToString
+                case None => "-"
+            }
             val fenHalfMoves = "0"
             val fenMoves = "0"
             (s"$fenBitBoardWhite $fenSideToMove $checkedFenCastling $fenEnPassant $fenHalfMoves $fenMoves",
